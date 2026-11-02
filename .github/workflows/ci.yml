@@ -1,0 +1,24 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: contracts } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - run: npm ci
+      - run: forge fmt --check
+      - run: forge build --sizes
+      - run: forge test
+      - run: EXPECT_NO_BLS=true FOUNDRY_PROFILE=nobls forge test --match-test test_selfTest
+  relayer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: cd contracts && npm ci && forge build
+      - run: cd relayer && npm ci && npm run typecheck
+      - run: cd relayer && npx tsx scripts/e2e.ts

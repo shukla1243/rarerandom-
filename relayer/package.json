@@ -1,0 +1,23 @@
+{
+  "name": "@rarerandom/relayer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "fixtures": "tsx scripts/gen-fixtures.ts",
+    "typecheck": "tsc --noEmit",
+    "e2e": "tsx scripts/e2e.ts"
+  },
+  "dependencies": {
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "^2.0.0",
+    "viem": "^2.57.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
